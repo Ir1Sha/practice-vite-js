@@ -76,23 +76,36 @@ if(saveData) {
 // Якщо значення парне, вирішуй проміс та повертай "even" через 1 секунду.
 // Якщо значення не парне, вирішуй проміс та повертай "odd" через 2 секунди.
 
-const answer = Number(prompt("Enter smthing"));
-function check(answer) {
-    return new Promise((resolve, reject) => {
-if(isNaN(answer)) {
-    reject("error");
+// const answer = Number(prompt("Enter smthing"));
+// function check(answer) {
+//     return new Promise((resolve, reject) => {
+// if(isNaN(answer)) {
+//     reject("error");
 
-} 
-if(answer % 2 === 0) {
-setTimeout(() => resolve("even"), 1000);  
-}
-if(answer % 2 !== 0) {
-    setTimeout(() => resolve("odd"), 2000)  
+// } 
+// if(answer % 2 === 0) {
+// setTimeout(() => resolve("even"), 1000);  
+// }
+// if(answer % 2 !== 0) {
+//     setTimeout(() => resolve("odd"), 2000)  
 
-}
-    })
+// }
+//     })
+// }
+
+// check(answer)
+// .then((response) => console.log(response))
+// .catch((err) => console.log(err))
+
+//   ЗАВДАННЯ 3
+// Додай відображення дати і часу в реальному часі
+
+const span = document.querySelector(".date span");
+
+function updateData() {
+  span.textContent = new Date().toLocaleString();
 }
 
-check(answer)
-.then((response) => console.log(response))
-.catch((err) => console.log(err))
+setInterval(updateData, 1000);
+
+updateData();
