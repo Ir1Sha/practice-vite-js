@@ -109,3 +109,30 @@ function updateData() {
 setInterval(updateData, 1000);
 
 updateData();
+
+
+// ЗАВДАННЯ 4
+
+// Напишіть функцію calculateAge(birthDate), яка приймає дату народження у форматі YYYY-MM-DD і повертає поточний вік.
+// Підказка: Використайте об'єкт Date для обчислення різниці між сьогоднішньою датою і датою народження.
+
+function calculateAge(birthDate) {
+  const birth = new Date(birthDate);
+  const currentdate = new Date();
+
+  let years = currentdate.getFullYear() - birth.getFullYear();
+  const month = currentdate.getMonth() - birth.getMonth();
+  const days = currentdate.getDate() - birth.getDate();
+  // console.log(month,  days);
+  if (month < 0 || (month === 0 && days < 0)) {
+    years-=1
+  };
+  return years;
+
+}
+
+console.log(calculateAge("1998-11-20"));
+console.log(calculateAge("1998-11-26"));
+console.log(calculateAge("1998-12-15"));
+ 
+ 
