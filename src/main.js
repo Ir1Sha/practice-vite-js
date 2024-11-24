@@ -17,6 +17,7 @@ const USER_DATA = {
   };
 
 const LS_KEY = "user-data";
+const saveData = localStorage.getItem(LS_KEY);
 
   const form  = document.querySelector(".login-form");
   const email = document.querySelector("[name='email']");
@@ -27,6 +28,16 @@ const LS_KEY = "user-data";
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    if(btn.textContent === "Logout") {
+      localStorage.removeItem(LS_KEY);
+
+      btn.textContent = "Login";
+      form.reset();
+      email.removeAttribute("readonly");
+      password.removeAttribute("readonly");
+      return;
+    }
 
     if(!email.value.trim() || !password.value.trim()) {
         alert("Fill all fields");
@@ -46,3 +57,13 @@ const LS_KEY = "user-data";
 
 } 
 
+if(saveData) {
+  const parsedData = JSON.parse(saveData);
+
+  email.value = parsedData.email || '';
+  password.value = parsedData.password || '';
+
+  btn.textContent = "Logout";
+  email.setAttribute("readonly", true);
+  password.setAttribute("readonly", true);
+}
