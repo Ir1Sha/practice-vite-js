@@ -2,11 +2,16 @@ import UnsplashAPI from './UnsplashAPI.js';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 import renderingFoo from './renderfoo.js';
+import iziToast from 'izitoast';
+import icon from "../img/javascript.svg";
+import "izitoast/dist/css/iziToast.min.css";
 
 const api = new UnsplashAPI();
 
 const galleryList = document.querySelector('.gallery');
 const container = document.getElementById('tui-pagination-container');
+const form = document.querySelector(".js-search-form");
+const input = document.querySelector(".search-input");
 
 const options = {
   totalItems: 0,
@@ -30,3 +35,21 @@ pagination.on('afterMove', event => {
     .getPopularPhotos(currentPage)
     .then(res => (galleryList.innerHTML = renderingFoo(res.results)));
 });
+
+form.addEventListener("submit", (event) =>{
+  event.preventDefault();
+  const inputValue = input.value.trim();
+  if (inputValue === "") {
+    iziToast.info({message: 'Enter smt for search',
+      iconUrl: icon
+    });
+    return;
+  } 
+  api.query = inputValue;
+
+  api.getPhotosByQuery(currentPage)
+  .then(result => {
+    galleryList.innerHTML = renderingFoo(result.results);
+    pagination.reset(result.total);
+  });
+})
